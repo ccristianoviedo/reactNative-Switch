@@ -1,47 +1,29 @@
-import { StyleSheet, Text, View, Button, TextInput, FlatList, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image,Button, TextInput, FlatList, TouchableOpacity} from 'react-native';
 
 
-export default function Item(item) {
-  console.log(item)
+export default function Item() {
+  
   return (
-    <View style={styles.container}>
-      <View>
-        <Text>{item.name}</Text>
-        <Text>{item.price}</Text>
-        <Text>{item.id}</Text>
-        <Text>{item.stock}</Text>
-      </View>
-      
-        
-       
+    <View style={styles.item}>
+        <Text>Hola</Text>
+        <Image
+          source={{ uri: 'https://elpoderdelconsumidor.org/wp-content/uploads/2016/11/mandarina.jpg' }}
+          style={{ width: 250, height: 250 }}
+        />
     </View>
   );
 }
 const styles = StyleSheet.create({
-  container: {
+  item: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'gray',
     alignItems: 'center',
     justifyContent: 'center',
-    
+    width:'100%',
   },
   text:{
     color:'red',
     fontSize: 65,
+    fontFamily:'Italic'
   },
-  TextInput:{
-    color:'blue',
-    fontSize: 25,
-    marginTop: 70,
-  },
-  item:{
-    marginTop:5,
-    backgroundColor:'orange',
-    width:300,
-  },
-  TextTitle: {
-    marginTop:50,
-    color:'orange',
-    fontSize:40,
-  } 
 });

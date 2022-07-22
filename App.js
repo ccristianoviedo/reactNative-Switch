@@ -1,46 +1,36 @@
+import React from'react'
 import { StyleSheet, Text, View, Button, TextInput, FlatList, TouchableOpacity} from 'react-native';
+import Item from './components/pages/Item';
+import Nav from './components/pages/Nav';
+import Title from './components/pages/title';
 import { useState } from 'react';
-import ItemListContainer from './components/pages/ItemListContainer';
-
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 export default function App() {
-  const [textName, setTextName] = useState('');
-  const [textAge, setTextAge] = useState('');
-  const [itemList, setItemList] = useState([]);
-  
-  const onHandlerChangeName = (textItem)=> setTextName(textItem)
+  const [loaded] = useFonts({
+    Bold: require('./assets/fonts/Ubuntu-Bold.ttf'),
+    BoldItalic: require('./assets/fonts/Ubuntu-BoldItalic.ttf'),
+    Italic: require('./assets/fonts/Ubuntu-Italic.ttf'),
+    Medium: require('./assets/fonts/Ubuntu-Medium.ttf'),
+  })
+  const [userNumber, setUserNumber] = useState();
 
-  const onHandlerChangeAge = (Number)=> setTextAge(Number)
+  const HandlerStartApp=(selectedNumber)=>{
+    setUserNumber(selectedNumber)
+  }
 
-  const onHandlerAddItem =()=> {
-    setItemList(currentItems=>[...currentItems,
-      {
-        id: Date.now(), 
-        value: textName,
-        textAge: textAge,
-      }])
-    setTextName('')
-    setTextAge('')
-  }  
+  let content = <Nav onStart={HandlerStartApp}/>
+
+  if(userNumber){
+    content = <Item/>
+  }
+
+  if (!loaded) return <AppLoading/>
   return (
     <View style={styles.container}>
-      <Text  style={styles.TextTitle}>
-        Mandarinas
-        <ItemListContainer/>
-      </Text>         
-      
-      <FlatList
-        data={itemList}
-        renderItem={data=>(
-          <TouchableOpacity
-            style={styles.item}>
-            <Text>{data.item.value}</Text>
-            <Text>{data.item.id}</Text>
-          </TouchableOpacity>
-        )}
-        showsVerticalScrollIndicator={false}
-        
-     />      
+        <Title/>
+        {content}
     </View>
   );
 }
@@ -49,26 +39,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
-    
+    justifyContent: 'center',    
   },
   text:{
     color:'red',
     fontSize: 65,
   },
-  TextInput:{
-    color:'blue',
-    fontSize: 25,
-    marginTop: 70,
-  },
-  item:{
-    marginTop:5,
-    backgroundColor:'orange',
-    width:300,
-  },
-  TextTitle: {
-    marginTop:50,
-    color:'orange',
-    fontSize:40,
-  } 
+ 
+  
+  
 });
